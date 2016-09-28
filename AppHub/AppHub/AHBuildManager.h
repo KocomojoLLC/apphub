@@ -118,4 +118,6 @@ extern NSString *const AHBuildManagerBuildKey;
  */
 @property (nonatomic, copy) TaskHandlerBlock taskHandlerBlock;
 
+@property (nonatomic, assign) NSBundle *bundle;  // the bundle to use, defaults to [NSBundle mainBundle]
+
 @end

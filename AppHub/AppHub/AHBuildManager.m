@@ -47,6 +47,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
         self.cellularDownloadsEnabled = NO;
         self.debugBuildsEnabled = NO;
         self.completionHandlers = [[NSMutableArray alloc] init];
+        self.bundle = [NSBundle mainBundle];
         
         [self cleanBuilds];
     }
@@ -58,8 +59,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
 {
     if (_installedAppVersion) { return _installedAppVersion; }
 
-    NSBundle *mainBundle = [NSBundle mainBundle];
-    return mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    return self.bundle.infoDictionary[@"CFBundleShortVersionString"];
 }
 
 - (void)cleanBuilds
@@ -85,15 +85,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
 {
     NSDictionary *currentBuildInfo = [self currentBuildInfo];
     
-    NSBundle *bundle;
-    if (currentBuildInfo) {
-        NSURL *currentBundleDirectory = AHBundleDirectory(currentBuildInfo[AHBuildDataBuildIDKey]);
-        bundle = [NSBundle bundleWithURL:currentBundleDirectory];
-    } else {
-        bundle = [NSBundle mainBundle];
-    }
-    
-    return [[AHBuild alloc] initWithBundle:bundle info:currentBuildInfo];
+    return [[AHBuild alloc] initWithBundle:self.bundle info:currentBuildInfo];
 }
 
 - (void)downloadFromJSON:(NSDictionary *)buildJSON resultsHandler:(AHBuildResultBlock)completion
