@@ -9,6 +9,8 @@
 
 #import "AHConstants.h"
 
+#import "AppHub.h"
+
 NSURL *AHBuildDirectory(NSString *buildID)
 {
     return [AHBuildsDirectory() URLByAppendingPathComponent:buildID isDirectory:YES];
@@ -31,5 +33,6 @@ NSURL *AHBuildsDirectory(void)
 
 NSURL *AHRootDirectory(void)
 {
-    return [[[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:AHDirectoryName isDirectory:YES];
+    
+    return [[[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:[AppHub appHubDirectory] isDirectory:YES];
 }
