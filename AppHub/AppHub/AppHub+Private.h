@@ -25,4 +25,6 @@
 
 @property (nonatomic, strong) AHReachability *reachability;
 
+@property (nonatomic, strong) NSString *apphubDirectory;
+
 @end

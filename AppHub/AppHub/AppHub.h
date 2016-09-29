@@ -55,6 +55,11 @@
 /// The version of the installed SDK.
 + (NSString *)SDKVersion;
 
+/// AppHub directory, defaults to AHDirectoryName
++ (void)setAppHubDirectory:(NSString *)appHubDirectory;
+
++ (NSString *)appHubDirectory;
+
 ///---------------------
 /// @name Testing Builds
 ///---------------------

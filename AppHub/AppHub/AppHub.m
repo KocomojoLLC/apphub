@@ -41,6 +41,8 @@ NSString *const AHEndpoint = @"https://api.apphub.io/v1";
         
         self.reachability = [AHReachability reachabilityWithHostname:@"www.google.com"];
         [self.reachability startNotifier];
+        
+        self.apphubDirectory = AHDirectoryName;
     }
     
     return self;
@@ -72,6 +74,14 @@ NSString *const AHEndpoint = @"https://api.apphub.io/v1";
 
 + (AHLogLevel)logLevel {
     return [AppHub sharedManager].logLevel;
+}
+
++ (void)setAppHubDirectory:(NSString *)appHubDirectory {
+    [AppHub sharedManager].apphubDirectory = appHubDirectory;
+}
+
++ (NSString *)appHubDirectory {
+    return [AppHub sharedManager].apphubDirectory;
 }
 
 + (void)presentSelectorOnViewController:(UIViewController *)viewController
