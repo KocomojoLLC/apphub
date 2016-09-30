@@ -85,7 +85,15 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
 {
     NSDictionary *currentBuildInfo = [self currentBuildInfo];
     
-    return [[AHBuild alloc] initWithBundle:self.bundle info:currentBuildInfo];
+    NSBundle *curBundle;
+    if (currentBuildInfo) {
+        NSURL *currentBundleDirectory = AHBundleDirectory(currentBuildInfo[AHBuildDataBuildIDKey]);
+        curBundle = [NSBundle bundleWithURL:currentBundleDirectory];
+    } else {
+        curBundle = self.bundle;
+    }
+    
+    return [[AHBuild alloc] initWithBundle:curBundle info:currentBuildInfo];
 }
 
 - (void)downloadFromJSON:(NSDictionary *)buildJSON resultsHandler:(AHBuildResultBlock)completion
