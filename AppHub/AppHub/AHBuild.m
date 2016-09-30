@@ -33,7 +33,7 @@
     if ((self = [super init])) {
         _buildDescription = [info[AHBuildDataDescriptionKey] copy] ?: @"This build was downloaded from the App Store.";
         _bundle = bundle ?: [NSBundle mainBundle];
-        _compatibleIOSVersions = [info[AHBuildDataCompatibleIOSVersionsKey] allValues] ?: @[self.bundle.infoDictionary[@"CFBundleShortVersionString"]];
+        _compatibleIOSVersions = [info[AHBuildDataCompatibleIOSVersionsKey] allValues] ?: @[[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]];
         if (info[AHBuildDataCreatedAtKey]) {
             _creationDate = [NSDate dateWithTimeIntervalSince1970:[info[AHBuildDataCreatedAtKey] doubleValue] / 1000.0];
         }
