@@ -67,7 +67,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
     AHBuild *currentBuild = self.currentBuild;
     
     // Check if our current build info is old, and if it is, wipe our current build info.
-    if (!currentBuild.isDefaultBuild &&
+    if (currentBuild.bundle != self.bundle  &&
         ![currentBuild.compatibleIOSVersions containsObject:[self installedAppVersion]]) {
         AHClearAllBuilds();
     }
@@ -291,7 +291,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
             return;
         } else if (!buildJSON) {
             // In the case where we have no error, but there is no buildJson either. (No new builds)
-            if (! [cachedBuild isDefaultBuild]) {
+            if (cachedBuild.bundle != self.bundle) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:AHBuildManagerDidMakeBuildAvailableNotification object:self userInfo:@{AHBuildManagerBuildKey: self.currentBuild}];
             }
             

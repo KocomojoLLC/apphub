@@ -48,12 +48,6 @@
     return [NSSet setWithObject:@"identifier"];
 }
 
-- (BOOL)isDefaultBuild
-{
-    return self.bundle == [AppHub buildManager].bundle;
-    
-}
-
 - (NSDictionary *)dictionaryValue
 {
     return @{
