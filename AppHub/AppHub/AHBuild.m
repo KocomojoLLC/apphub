@@ -11,11 +11,7 @@
 #import "AHConstants.h"
 #import "AHDefines.h"
 #import "AHLogging.h"
-
-NS_INLINE NSString *AHShortVersionString(void)
-{
-    return [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
-}
+#import "AppHub.h"
 
 @implementation AHBuild
 {
@@ -37,7 +33,7 @@ NS_INLINE NSString *AHShortVersionString(void)
     if ((self = [super init])) {
         _buildDescription = [info[AHBuildDataDescriptionKey] copy] ?: @"This build was downloaded from the App Store.";
         _bundle = bundle ?: [NSBundle mainBundle];
-        _compatibleIOSVersions = [info[AHBuildDataCompatibleIOSVersionsKey] allValues] ?: @[AHShortVersionString()];
+        _compatibleIOSVersions = [info[AHBuildDataCompatibleIOSVersionsKey] allValues] ?: @[self.bundle.infoDictionary[@"CFBundleShortVersionString"]];
         if (info[AHBuildDataCreatedAtKey]) {
             _creationDate = [NSDate dateWithTimeIntervalSince1970:[info[AHBuildDataCreatedAtKey] doubleValue] / 1000.0];
         }
@@ -54,7 +50,8 @@ NS_INLINE NSString *AHShortVersionString(void)
 
 - (BOOL)isDefaultBuild
 {
-    return self.bundle == [NSBundle mainBundle];
+    return self.bundle == [AppHub buildManager].bundle;
+    
 }
 
 - (NSDictionary *)dictionaryValue
