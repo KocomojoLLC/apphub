@@ -377,7 +377,7 @@ NSString *const AHBuildManagerBuildKey = @"AHNewBuildKey";
     
     if (automaticPollingEnabled) {
         __weak typeof(self) weakSelf = self;
-        NSTimer *pollingTimer = (__bridge_transfer NSTimer *)CFRunLoopTimerCreateWithHandler(NULL, CFAbsoluteTimeGetCurrent(), 10.0, 0, 0, ^(CFRunLoopTimerRef timer) {
+        NSTimer *pollingTimer = (__bridge_transfer NSTimer *)CFRunLoopTimerCreateWithHandler(NULL, CFAbsoluteTimeGetCurrent(), 60.0, 0, 0, ^(CFRunLoopTimerRef timer) {
             [weakSelf pollForBuilds];
         });
         [[NSRunLoop currentRunLoop] addTimer:pollingTimer forMode:NSRunLoopCommonModes];
